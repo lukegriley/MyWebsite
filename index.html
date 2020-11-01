@@ -1,16 +1,53 @@
 <html>
+<style>
+  body {
+    background-color:#8cf5ee;
+    font-family:Impact, Charcoal, sans-serif;
+  }
+  #showGameButton {
+    position:relative;
+    left:300px
+    top:50px;
+  }
+  #gc {
+    position:relative;
+    left:300px
+    top:50px;
 
-<title>snake</title>
-testing testing
+  }
+</style>
 
+<title>Luke Riley's Website</title>
+
+<h1 id="firstHeading" font="impact">Luke Riley's CS Website</h1>
+<a href="https://github.com/lukegriley">GitHub</a>
+<br>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Youtube</a>
+<br>
+<br>
 <body>
-<canvas id="gc" width="600" height="600"></canvas>
+<button onclick="showhide()" id="showGameButton">Show/Hide Snake Game</button>
 <script>
+function showhide() {
+  var divGame = document.getElementById("snakegame");
+if (divGame.style.display === "none") {
+  divGame.style.display = "block";
+} else {
+  divGame.style.display = "none";
+}
+}
+</script>
+<div id="snakegame">
+<h3 id="gameScore">Current score: 5</h3>
+<canvas id="gc" width="400" height="400"></canvas>
+</div>
+<script>
+
     var cc = document.getElementById("gc");
     var ctx = cc.getContext("2d");
 
-    var width = 600;
-    var height = 600;
+    var width = 400;
+    var height = 400;
     var fps = 15;
     var x = 10;
     var y = 10;
@@ -125,6 +162,8 @@ testing testing
             snake.push([tempTailX,tempTailY]);
              fruitX = Math.floor(Math.random()*gridsize);
              fruitY = Math.floor(Math.random()*gridsize);
+             var scoreString = "Current score: "+snake.length;
+             document.getElementById("gameScore").innerHTML = scoreString;
             TBA = false;
         }
 
@@ -150,7 +189,6 @@ testing testing
        var headY = snake[0][1];
        for(var i=1;i<snake.length;i++){
            if(snake[i][0]==headX&&snake[i][1]==headY){
-               console.log("head meets");
                reset();
            }
        }
@@ -170,8 +208,8 @@ testing testing
         x = 10;
         y = 10;
         snake = [[x,y],[x-1,y],[x-2,y],[x-3,y],[x-4,y]];
+        document.getElementById("gameScore").innerHTML = "Current score: 5";
         TBA = false;
-        console.log("reset");
     }
 
 </script>
