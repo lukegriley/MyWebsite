@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body{
+      background:#2b2e30;
+      font-family:Impact, Charcoal, sans-serif;
+      color:white;
+    }
+    #gc {
+        background:white;
+        border: 1px solid black;
+    }
+    #score {
+        position: absolute;
+        top: 17%;
+        left: 26%;
+        font-family:sans-serif;
+        font-size:25px;
+        color:black;
+    }
+    #startbtn {
+        background-color: greenyellow;
+        padding: 25px;
+        position: absolute;
+        top: 36%;
+        left: 23%;
+        font-family: sans-serif;
+        font-size: 30px;
+    }
+    a {
+      color:white;
+
+</style>
+<title>Stick Ninja</title>
+</head>
+<body>
+  <a href="index.html">Back to home</a>
+  <h2>Play this game thing I coded in 8th grade. Hold click to raise your stick.</h2>
+  <br>
+<canvas id="gc" width="800" height="600" onmousedown="growtrue()" onmouseup="growfalse()"></canvas>
+
+<p id="score"></p>
+<button id="startbtn" onclick="start()">Play!</button>
+<script>
+c = document.getElementById("gc");
+ctx = c.getContext("2d");
+var height = 600;
+var width = 800;
+var x = 100;
+var y = height-150;
+var len = 30;
+var wid = 30;
+var fps = 30;
+var sw = 7;
+var sl = 40;
+var sx = x+len;
+var sy = y-(sl-len);
+var grow = false;
+var release = false;
+var callgrow = true;
+var angle = 180;
+var side = false;
+var bx = [];
+var by = [];
+var bl = []
+var angledone = [];
+var counter = 1;
+var bv = 0;
+var vy = 0;
+function start() {
+int1 = setInterval(update,1000/30)
+document.getElementById("startbtn").style.visibility = "hidden";
+}
+
+bx[0] = 0;
+bl[0] = 130;
+by[0] = height-150+len;
+
+for (i=1;i<=100;i++){
+    bx[i] =  bx[i-1] + Math.floor(Math.random()*130)+120;
+    bl[i] = Math.floor(Math.random()*40)+50;
+    by[i] = height - 150 + len;
+}
+
+
+
+function reset() {
+    clearInterval(int1);
+    vy = 0;
+    y = height-150;
+    grow = false;
+    release = false;
+    callgrow = true;
+    angle = 180;
+    side = false;
+    counter = 1;
+    bx[0] = 0;
+    bl[0] = 130;
+    by[0] = height-150+len;
+    for (i=1;i<=100;i++){
+    bx[i] =  bx[i-1] + Math.floor(Math.random()*130)+120;
+    bl[i] = Math.floor(Math.random()*40)+50;
+    by[i] = height - 150 + len;
+}
+    int1 = setInterval(update,1000/fps);
+}
+function growtrue() {
+    if(callgrow){
+    grow = true;
+    }
+}
+
+function growfalse() {
+    grow = false;
+    release = true;
+    callgrow = true;
+}
+function update() {
+    document.getElementById("score").innerHTML = counter-1;
+    console.log(side);
+    if (!side) {
+    sx = x+len;
+    sy = y-(sl-len);
+    }
+    if(grow){
+    sy-=5;
+    sl+=5;
+    }
+    if (side){
+        oldsx = sx;
+        callgrow = false;
+        sy = oldy+len;
+        sx-=4;
+        bv=-4;
+
+        if (sx+sl<=x){
+        console.log('bx: '+bx[counter]);
+        callgrow = true;
+        side = false;
+        if (sx+sl<bx[counter]||sx+sl>bx[counter]+bl[counter]) {
+            vy = 5;
+        }
+        else {
+            vy = 0;
+            counter++;
+        }
+        sl=40;
+        angle = 180;
+
+            bv = 0;
+        }
+    }
+    if (y-15>=height){
+        clearInterval(int1);
+       // clearRect(0,0,width,height);
+        setTimeout(reset,1000)
+    }
+    ctx.clearRect(0,0,width,height);
+    ctx.save();
+    //by = y+len;
+   // bx = 500;
+    y += vy
+    ctx.fillStyle = 'black';
+    for (j =0; j<=100;j++) {
+    if(bx[j]>-100&&bx[j]+bl[j]<width+100)
+    ctx.fillRect(bx[j],by[j],bl[j],height-by[j])
+    bx[j]+=bv;
+    }
+    ctx.fillStyle = 'skyblue';
+    ctx.fillRect(x,y,len,len);
+    ctx.fillStyle = 'red';
+    if(side&&!release){
+        ctx.fillRect(sx,sy,sl,sw);
+    }
+    else if(!release){
+    ctx.fillRect(sx,sy,sw,sl);
+    }
+    else {
+    angle+=3;
+    callgrow = false;
+    ctx.translate(x+len+sw/2,y+len);
+    ctx.rotate(angle*Math.PI/180);
+    ctx.fillRect(0,0,sw,sl);
+     if(angle>=270) {
+
+         release = false;
+        side= true;
+        ctx.rotate(-1*angle*Math.PI/180);
+        ctx.translate(-1*(x+len+sw/2),-1*(y+len));
+
+        //sx = x+len;
+        sy = y-len+sw;
+        oldx = x;
+        oldy = y;
+
+    }
+    }
+    console.log('pos:'+x+','+y);
+    console.log('s: '+sx+','+sy);
+    console.log('bx: '+bx[counter]+by[counter]);
+
+    ctx.restore();
+}
+</script>
+</body>
+</html>
