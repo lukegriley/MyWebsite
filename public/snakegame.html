@@ -1,0 +1,191 @@
+<html>
+<head>
+<style>
+  body {
+    background-color:#2b2e30;
+    font-family:monospace;
+    color:white;
+
+  }
+  a {
+    color:white;
+  }
+  #snakegame {
+    display:block;
+  }
+  #showStickGameButton {
+    position:absolute;
+    top:15%;
+    left:33%;
+  }
+
+</style>
+<title>Snake Game</title>
+<a href="index.html">Back to home</a>
+<h2>Snake Game</h2>
+
+</head>
+<body>
+
+  <div id="snakegame">
+  <h3>Play with arrow keys</h3>
+  <h3 id="gameScore">Current score: 5</h3>
+  <canvas id="gc" width="400" height="400"></canvas>
+  <script>
+
+      var cc = document.getElementById("gc");
+      var ctx = cc.getContext("2d");
+
+      var width = 400;
+      var height = 400;
+      var fps = 15;
+      var x = 10;
+      var y = 10;
+      var posX = x*gridRatio;
+      var posY = y*gridRatio;
+      var gridsize = 40;
+      var gridRatio = width/gridsize;
+      var jumped = false;
+      var Keys = {
+          up: false,
+          down: false,
+          left: false,
+          right: true
+      }
+      var speed = 1;
+      var velX = speed;
+      var velY = 0;
+
+
+      var fruitX = Math.floor(Math.random()*gridsize);
+      var fruitY = Math.floor(Math.random()*gridsize);
+      var grid = new Array(gridsize);
+
+      for (var i = 0; i < grid.length; i++) {
+        grid[i] = new Array(gridsize);
+      }
+
+      var snake = [[x,y],[x-1,y],[x-2,y],[x-3,y],[x-4,y]];
+
+      window.onkeydown = function(e) {
+          e.preventDefault();
+          var kc = e.keyCode;
+
+          if(kc==37) {
+              Keys.left=true;
+              Keys.right = false;
+              Keys.up = false;
+              Keys.down = false;
+          }
+          else if(kc==38) {
+              Keys.left=false;
+              Keys.right = false;
+              Keys.up = true;
+              Keys.down = false;
+          }
+          else if(kc==39) {
+              Keys.left=false;
+              Keys.right = true;
+              Keys.up = false;
+              Keys.down = false;
+          }
+          else if(kc==40) {
+              Keys.left=false;
+              Keys.right = false;
+              Keys.up = false;
+              Keys.down = true;
+          }
+      }
+
+      var int1 = setInterval(update,1000/fps);
+      var TBA = false;
+      function update() {
+          ctx.fillStyle = "gray";
+          ctx.fillRect(0,0,width,height);
+
+          if(Keys.left&&velX<=0){
+              velX = -1*speed;
+              velY = 0;
+          }
+          if(Keys.right&&velX>=0){
+              velX = speed;
+              velY = 0;
+          }
+          if(Keys.up&&velY<=0){
+              velY = -1*speed;
+              velX = 0;
+          }
+          if(Keys.down&&velY>=0){
+              velY = speed;
+              velX = 0;
+          }
+          //y+=velY;
+          //x+=velX;
+          var tempX = snake[0][0]+velX;
+          var tempY = snake[0][1]+velY;
+          if(TBA){
+              var tempTailX = snake[snake.length-1][0];
+              var tempTailY = snake[snake.length-1][1];
+          }
+          for(var i=snake.length-2;i>=0;i--){
+              snake[i+1][0] = snake[i][0];
+              snake[i+1][1] = snake[i][1];
+          }
+          snake[0][0] = tempX;
+          snake[0][1] = tempY;
+          if(TBA){
+              snake.push([tempTailX,tempTailY]);
+               fruitX = Math.floor(Math.random()*gridsize);
+               fruitY = Math.floor(Math.random()*gridsize);
+               var scoreString = "Current score: "+snake.length;
+               document.getElementById("gameScore").innerHTML = scoreString;
+              TBA = false;
+          }
+
+          if(snake[0][0]==fruitX&&snake[0][1]==fruitY){
+              TBA = true;
+          }
+
+          ctx.fillStyle = "red";
+          ctx.fillRect(fruitX*gridRatio,fruitY*gridRatio,gridRatio,gridRatio);
+
+          ctx.fillStyle = "black";
+          //ctx.fillRect(x*gridRatio,y*gridRatio,gridRatio,gridRatio);
+         for(var i=0;i<snake.length;i++){
+             ctx.fillRect(snake[i][0]*gridRatio,snake[i][1]*gridRatio,gridRatio,gridRatio)
+         }
+          //addSquare();
+         if(snake[0][0]>gridsize||snake[0][0]<0||snake[0][1]>gridsize||snake[0][1]<0){
+             reset();
+         }
+         var snakecut = snake.slice(1,snake.length);
+       //  console.log(snakecut);
+         var headX =snake[0][0];
+         var headY = snake[0][1];
+         for(var i=1;i<snake.length;i++){
+             if(snake[i][0]==headX&&snake[i][1]==headY){
+                 reset();
+             }
+         }
+      }
+
+      function reset() {
+          velX = speed;
+          velY = 0;
+          Keys.down = false;
+          Keys.left = false;
+          Keys.right = true;
+          Keys.up = false;
+          fruitX = Math.floor(Math.random()*gridsize);
+          fruitY = Math.floor(Math.random()*gridsize);
+          x = 10;
+          y = 10;
+          snake = [[x,y],[x-1,y],[x-2,y],[x-3,y],[x-4,y]];
+          document.getElementById("gameScore").innerHTML = "Current score: 5";
+          TBA = false;
+      }
+
+  </script>
+
+</body>
+</html>
