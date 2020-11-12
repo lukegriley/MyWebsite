@@ -1,0 +1,20 @@
+body {
+  background-color:#2b2e30;
+  font-family:monospace;
+  color:white;
+  text-align:center;
+  line-height:60px;
+  background-image:url(https://i.pinimg.com/originals/2f/f6/85/2ff68556b9d25c1aed0d365af26a8042.gif);
+  background-repeat:no-repeat;
+  background-blend-mode:color;
+  background-size:cover;
+
+
+}
+ a {
+  font-size:30px;
+   position:relative;
+   color:white;
+   text-decoration:none;
+
+ }

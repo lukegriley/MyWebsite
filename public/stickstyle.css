@@ -1,0 +1,30 @@
+body{
+  background:#2b2e30;
+  font-family:monospace;
+  color:white;
+}
+#gc {
+    background:white;
+    border: 1px solid black;
+}
+#score {
+    position: absolute;
+    top: 17%;
+    left: 26%;
+    font-family:sans-serif;
+    font-size:25px;
+    color:black;
+}
+#startbtn {
+    background-color: greenyellow;
+    padding: 25px;
+    position: absolute;
+    top: 36%;
+    left: 23%;
+    font-family: sans-serif;
+    font-size: 30px;
+}
+a {
+  color:white;
+  text-decoration:none;
+}
