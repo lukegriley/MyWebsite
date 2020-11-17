@@ -1,33 +1,43 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-
 <title>Luke Riley's Website</title>
 </head>
-
+<audio autoplay="true" id="audioControls" hidden="true">
+<source src="https://audio.jukehost.co.uk/t2rUl4gLRDUnbDjw9bLHDBPmijKdk2y6" loop="true">
+</audio>
 <body>
 <div id="mainContainer">
   <link href="main.css" rel="stylesheet">
-  <audio autoplay id="audioControls" hidden="true">
-  <source src="https://audio.jukehost.co.uk/t2rUl4gLRDUnbDjw9bLHDBPmijKdk2y6" loop="true">
-  </audio>
+
 
 <h1 id="firstHeading" font="impact">Luke Riley's CS Website</h1>
-<a href="https://github.com/lukegriley">GitHub</a>
+<a href="https://github.com/lukegriley/MyWebsite">GitHub</a>
 <br>
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Youtube</a>
-<br>
-<a id="snakebutton">Play Snake Game</a>
-<!--<button id="snakebutton">Play Snake Game</button> -->
-<br>
-<a id="stickbutton">Play Stick Game</a>
+
 <br>
 <a href="http://lukerchatroom.herokuapp.com/">Luke Riley Official Chat Room</a>
 <br>
 <a id="aboutbutton">About me</a>
 <br>
 <a target="_blank" href="https://grabify.link/H8HHEO">
-Tweet about this website!</a>
+Tweet about this website</a>
+<br>
+<div class="dropdown">
+  <a class="dropbtn">Games</a>
+  <div class="dropdown-content">
+    <a id="snakebutton">Snake Game</a>
+    <a id="stickbutton">Stick Game</a>
+    <button id="playgame">Play a game</button>
+</div>
+</div>
+
+
+</div>
+<br>
+<div id="game_content">
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
