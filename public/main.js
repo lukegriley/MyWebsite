@@ -2,8 +2,6 @@ $("#snakebutton").click(requestSnakeContent);
 $("#stickbutton").click(requestStickContent);
 $("#aboutbutton").click(requestAboutContent);
 $("#playgame").click(requestGameContent);
-$("#rainbow_button").click(rainbowText);
-$("#stop_button").click(stopMusic)
 
 //COMMENTED THIS STUFF OUT BECAUSE IT DOESN'T APPEAR ANYWHERE ELSE IN main.js, index.html, OR main.css
 //var audio = document.getElementById("audioControls");
