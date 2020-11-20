@@ -7,7 +7,7 @@ $("#playgame").click(requestGameContent);
 //var audio = document.getElementById("audioControls");
 //audioControls.volume = 0.05;
 var isRainbow = false;
-var isPlayingSong = true;
+var isPlayingSong = false;
 
 function requestSnakeContent() {
   $.ajax({url: "snakegame.html", success: loadContent});
