@@ -54,3 +54,14 @@ body {
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #b325b8;}
+
+.button {
+  text-align: center;
+  width: auto;
+  height: auto;
+  font-size: 30px;
+  font-family: monospace;
+  background-color: none;
+  margin: auto;
+  cursor: pointer;
+}
