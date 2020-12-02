@@ -1,0 +1,17 @@
+body {
+  background-color:#2b2e30;
+  font-family:monospace;
+  color:white;
+
+}
+a {
+  color:white;
+}
+#snakegame {
+  display:block;
+}
+#showStickGameButton {
+  position:absolute;
+  top:15%;
+  left:33%;
+}

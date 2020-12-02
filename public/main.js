@@ -2,6 +2,7 @@ $("#snakebutton").click(requestSnakeContent);
 $("#stickbutton").click(requestStickContent);
 $("#aboutbutton").click(requestAboutContent);
 $("#playgame").click(requestGameContent);
+$("#newsfeed").click(requestJSONContent);
 
 //COMMENTED THIS STUFF OUT BECAUSE IT DOESN'T APPEAR ANYWHERE ELSE IN main.js, index.html, OR main.css
 //var audio = document.getElementById("audioControls");
@@ -26,6 +27,36 @@ function requestGameContent() {
 function requestRainbowContent() {
   console.log("reached inside of requestRainbowContent function");
   $.ajax({url: "index.html", success: rainbowText});
+}
+
+function requestJSONContent() {
+  console.log('requesting json');
+  $.ajax({
+    dataType:"json",
+    url: "blogArticles.json",
+    success: loadJSONContentAsHTML
+  });
+}
+
+function loadJSONContentAsHTML(result) {
+  var newHTMLString = "<link href='newsstyle.css' rel='stylesheet'> <a href=''>Back to home</a>";
+  for (var i=0;i<result.length;i++){
+    var headline = result[i]['headline'];
+    var author = result[i]['author'];
+    var body = result[i]['body'];
+    var likes = result[i]['numberOfLikes'];
+    var date = result[i]['date'];
+
+    newHTMLString += "<h1>"+headline+"</h1>";
+    newHTMLString += "<h3>Written by "+author+" on "+date+"</h3>";
+    newHTMLString += "<h3>Number of likes:"+likes+"</h3>";
+    newHTMLString += "<p>"+body+"<p><br>";
+
+
+  }
+  unloadContent();
+  $("#news_feed_content").html(newHTMLString);
+
 }
 
 function loadContent(result) {
